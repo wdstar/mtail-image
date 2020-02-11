@@ -1,0 +1,26 @@
+---
+version: '3'
+services:
+  mtail:
+    build:
+      context: ./
+    image: ${DOCKER_ID}/${NAME}:${TAG}
+    restart: 'no'
+    ports:
+      -  3903:3903
+    command:
+      - --progs
+      - /etc/mtail
+      - --logs
+      - /tmp/mtail.INFO,/tmp/mtail.WARNING
+    volumes:
+      - ${PWD}/etc/mtail:/etc/mtail
+  prom:
+    image: prom/prometheus
+    restart: 'no'
+    ports:
+      - 9090:9090
+    volumes:
+      - ${PWD}/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    links:
+      - mtail
