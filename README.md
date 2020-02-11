@@ -1,7 +1,7 @@
 # mtail-image
 mtail Docker image.
 
-https://hub.docker.com/repository/docker/whitestar/mtail
+https://hub.docker.com/r/whitestar/mtail
 
 ## Development
 
