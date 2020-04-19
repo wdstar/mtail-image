@@ -157,9 +157,15 @@ data:
     * * * * * root date >> /tmp/log/test.log
   test.mtail: |
     counter lines_total by filename
+    counter mtail_log_levels_total by filename, level
 
     /$/ {
       lines_total[getfilename()]++
+    }
+
+    # glog log header
+    /^(?P<level>[IWEF]{1})(?P<date>\d{4}) / {
+      mtail_log_levels_total[getfilename()][$level]++
     }
   prometheus.yml: |
     global:
